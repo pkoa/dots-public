@@ -1,0 +1,182 @@
+@define-color pinkurple #7a395e;
+@define-color pinkfocus #8e446e;
+@define-color pinky #aa5083;
+@define-color green #7df2b0;
+@define-color greenfocus #81f9b5;
+@define-color light-purple #7b5cce;
+
+@define-color old-back #282a36;
+@define-color nord-back rgba(67,76,94, 1);
+@define-color nord-blue rgba(23, 63, 79, 0.4);
+
+@define-color main-color #b45cce;
+@define-color text  #d8dee9;
+@define-color background-color #212337;
+@define-color background transparent;
+@define-color border-color @main-color;
+@define-color focus-color @pinkfocus;
+@define-color alert-color @green;
+@define-color alert-focus @greenfocus;
+* {
+	border:  0;
+    border-radius: 0;
+	padding: 0;
+    font-family:   "Overpass";
+    font-size:     15px;
+	font-weight: bold;
+    box-shadow:    none;
+    text-shadow:   none;
+    transition-duration: 0s;
+}
+
+window#waybar {
+    color: @text;
+    background-color: @background-color;
+    border-bottom: 0px solid @main-color;
+}
+
+window#waybar.solo {
+    color: @text;
+}
+
+#custom-scratchpad {
+    margin: 0px	5px;
+    padding: 0px 5px;
+}
+
+#workspaces{
+	color: @text;
+	background-color: @background;
+	border: 0px solid @border-color;
+	border-radius:0px;
+}
+
+#workspaces button {
+    padding: 0 5px;
+	color: @text;
+	background-color:@background;
+    box-shadow: none;
+	text-shadow: none;
+    animation: gradient_f 20s ease-in infinite;
+    transition: all 0.2s cubic-bezier(.55,-0.68,.48,1.682);
+}
+#workspaces button:hover {
+	color: @text;
+	background: linear-gradient(180deg, @background 10%, @border-color 100%);
+}
+
+#workspaces button.visible {
+	color: @text;
+	background: linear-gradient(180deg, @background 50%, @border-color 100%);
+	border-bottom: 0px @border-color solid;
+	margin-bottom: 0px;
+}
+#workspaces button.visible:hover {
+	color: @text;
+	background: linear-gradient(180deg, @background 0%, @border-color 100%);
+	border-bottom:0px @border-color;
+	margin-bottom: 0px;
+}
+
+#workspaces button.urgent {
+    color: @text;
+	background: linear-gradient(180deg, @background 50%, @green 100%);
+}
+
+#workspaces button.urgent:hover {
+    color: @text;
+	background: linear-gradient(180deg, @background 50%, @greenfocus 100%);
+}
+
+#mode,
+#battery,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#idle_inhibitor,
+#temperature,
+#custom-zypper,
+#custom-layout,
+#backlight {
+	border-top: 0px solid @border-color;
+	border-bottom: 0px solid @border-color;
+	padding: 0px 10px 0px 10px;
+	color: @text;
+	background-color: @background;
+	font-weight: bold;
+}
+#network{
+	border: 0px solid @border-color;
+	border-right:0px;
+	border-radius:0;
+}
+#memory{
+	border-right: 0px solid @main-color;
+	margin-right: 8px;
+	border-radius: 0;
+}
+#privacy{
+	border-right: 0px solid @main-color;
+	margin-right: 8px;
+	border-radius: 0;
+}
+
+#clock {
+	font-size:18px;
+	font-weight:bold;
+	padding-top: 4px;
+	padding-left: 4px;
+	padding-right: 4px;
+	background-color: @background;
+	background: linear-gradient(180deg, @background 50%, @border-color 100%);
+	border-radius: 0px;
+	border: 0px solid @border-color;
+}
+
+#tray{
+	/* Pinkurple */
+	background-color: @background;
+	background: linear-gradient(180deg, @background 50%, @border-color 100%);
+	padding-left:8px;
+	padding-right:8px;
+	border: 0px solid @border-color;
+	border-radius: 0px;
+	color: @text;
+}
+#tray menu {
+	color: @text;
+	background: @background;
+	border-bottom:2px solid @border-color;
+	margin-bottom: 0px;
+}
+
+#window{
+	color:@text;
+	border: 0px solid @border-color;
+	border-bottom: 0px solid @border-color;
+	background: @background;
+	padding-right: 8px;
+	padding-left: 8px;
+	margin-left: 0px;
+	border-radius: 0px;
+}
+
+#modules{
+	border-radius: 0px ;
+	background-color: @background;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+#taskbar {
+	padding-right: 8px;
+	padding-left: 8px;
+}
+#taskbar button{
+	padding-right: 3px;
+	padding-left: 3px;
+}
+#systemd-failed-units {
+	padding-right: 8px;
+	padding-left: 8px;
+}

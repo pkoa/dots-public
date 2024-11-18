@@ -1,0 +1,257 @@
+{
+    "layer": "top", // Waybar at top layer
+    //"position": "left", // Waybar position (top|bottom|left|right)
+    "height": 32, // Waybar height (to be removed for auto height)
+    //"width": 1912, // Waybar width
+    "margin-top":0, //2
+    "margin-left":0, //4
+    "margin-right":0, //4
+    // "gtk-layer-shell": "false",
+    "output":"DP-1",
+    // Choose the order of the modules
+    "modules-left": ["hyprland/workspaces", "hyprland/window"],
+    "modules-center": ["clock"],
+    "modules-right": ["systemd-failed-units","privacy", "network", "pulseaudio", "cpu", "memory", "tray"],
+    "sway/mode": {
+        "format": " {}"
+    },
+    "hyprland/workspaces": {
+        "all-outputs": true,
+        "disable-scroll": true,
+        "format": " {name} ",
+        "format-icons": {
+            "urgent": "1",
+            "focused": "1",
+            "default": "1"
+        }
+    },
+    "systemd-failed-units": {
+        "hide-on-ok": true, // Do not hide if there is zero failed units.
+        "format": "✗ {nr_failed}",
+        "format-ok": "✓",
+        "on-click": "kitty --hold systemctl list-units --state failed",
+        "system": true, // Monitor failed systemwide units.
+        "user": false // Ignore failed user units.
+    },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 20,
+        "icon-theme": "Papyrus",
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+        //"on-click-middle": "minimize-raise",
+        "app_ids-mapping": {
+            "firefoxdeveloperedition": "firefox-developer-edition"
+        },
+        "rewrite": {
+            "Mozilla Firefox": "Firefox",
+            "Foot Server": "Terminal"
+        }
+    },
+    "hyprland/window": {
+        "format" : "{title}",
+        //"icon" : true,
+        "icon-size" : 20,
+        "max-length": 60,
+        "min-length": 0,
+        "align": 0,
+        "tooltip": false,
+        "separate-outputs": false,
+        "rewrite": {
+            "(.*) — Mozilla Firefox": "$1",
+            //"(.*) — (.*)": "$1",
+            "(.*) - Sublime Text(.*)": "$1",
+        },
+    },
+    "privacy": {
+        "icon-spacing": 4,
+        "icon-size": 20,
+        "transition-duration": 0,
+        "modules": [
+            {
+                "type": "screenshare",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            },
+            {
+                "type": "audio-out",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            },
+            {
+                "type": "audio-in",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            }
+        ]
+    },
+    "custom/layout": {
+        "tooltip": false,
+        "exec": "swaymsg -mrt subscribe '[\"input\"]' | jq -r --unbuffered \"select(.change == \\\"xkb_layout\\\") | .input | select(.type == \\\"keyboard\\\") | .xkb_active_layout_name | .[0:2]\""
+    },
+    "custom/zypper": {
+        "format": " {} ",
+        "interval": 3600,
+        "exec": "sh ~/.config/waybar/cstmzyp.sh",
+        //"exec": "zypper lu | grep 'v |' | wc -l; echo 'packages to update'",
+        "exec-if": "exit 0",
+        "on-click": "kitty --hold sudo zypper dup",
+        //"on-click-right": "sh ~/.config/waybar/cstmzyp.sh",
+        "signal": 8
+    },
+    // Modules configuration
+    //  "hyprland/workspaces": {
+    //     "disable-scroll": true,
+    //     "all-outputs": true,
+    //     "format": "{name}: {icon}",
+    //     "format-icons": {
+    //         "1": "",
+    //         "2": "",
+    //         "3": "",
+    //         "4": "",
+    //         "5": "",
+    //         "urgent": "",
+    //         "focused": "",
+    //         "default": ""
+    //     }
+    // },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        } 
+    },
+    "tray": {
+        "icon-size": 21,
+        "spacing": 10,
+	"show-passives-items":true,	
+    },
+    "clock": {
+        "timezone": "Europe/Berlin",
+        "format": " {:%R} ",
+        "tooltip-format": "<span color='#d8dee9'><tt><small>{calendar}</small></tt></span>",
+        "format-alt": "{:%a %d %b %H:%M\tw:%V}",
+        "calendar": {
+            "mode"          : "month",
+            "mode-mon-col"  : 3,
+            "weeks-pos"     : "left",
+            "on-scroll"     : 1,
+            "format": {
+                        "months":     "<span color='#b45cce'><b>{}</b></span>",
+                        "days":       "<span color='#d8dee9'><b>{}</b></span>",
+                        "weeks":      "<span color='#7a395e'><b>w{}</b></span>",
+                        "weekdays":   "<span color='#ecc6d9'><b>{}</b></span>",
+                        "today":      "<span color='#b45cce'><b>{}</b></span>"
+                        }
+        },
+        "actions":  {
+            "on-click-right": "mode",
+            "on-scroll-up": "tz_up",
+            "on-scroll-down": "tz_down",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+            },
+        //"today-format": "<span color='#b45cce'><b><u>{}</u></b></span>",
+        //"calendar-weeks-pos": "left",
+        //"format-calendar": "<span background='#173f4f' bgalpha='60%'><b>{}</b></span>",
+        //"format-calendar-weeks": "<span color='#73ba25'><b>{}</b></span>",
+        //"format-calendar-weekdays": "<span color='#21a4df'><b>{}</b></span>",
+        "interval": 10
+    },
+    "cpu": {
+        "format": "  {usage}%",
+        //"format-alt": "  {usage}%",
+        "tooltip": true,
+        "on-click-right": "kitty --class=floatingTerm btop",
+        "min-length": 5,
+    },
+    "memory": {
+        "format": "  {}%",
+        "on-click-right": "kitty --class=floatingTerm btop",
+	"min-length": 5,
+    },
+    "temperature": {
+        //"thermal-zone": 2,
+        "hwmon-path": "/sys/class/hwmon/hwmon0/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{temperatureC}°C {icon}",
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": ["", "", ""]
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{percent}% {icon}",
+        "format-icons": ["", ""]
+    },
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}",
+        "format-charging": "",
+        "format-plugged": "",
+        "format-alt": "{capacity}% {time}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "battery#bat2": {
+        "bat": "BAT2"
+    },
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": " ",
+        "format-ethernet": "",
+        "format-linked": " ",
+        "format-disconnected": "⚠",
+	"tooltip-format":"{ifname} {essid} | {bandwidthUpBits} up, {bandwidthDownBits} down",
+        "format-alt": "{ifname} {essid} ",
+    },
+    "pulseaudio": {
+	"min-length":4,
+        "format": "{icon}  {volume}%",
+        //"format-alt": "{icon} {volume}",
+        //"format-alt-click": "click-right",
+        "format-muted": " ",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "scroll-step": 5,
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        //"on-click-right": "pavucontrol-qt",
+        "on-click-right": "kitty --class=floatingTerm pulsemixer",
+        "tooltip": true
+    },
+    "custom/scratchpad": {
+        "format-text": "{}",
+        "return-type": "json",
+        "interval": 3,
+        "exec": "/usr/share/openSUSEway/helpers/scratchpad-indicator.sh 2> /dev/null",
+        "exec-if": "exit 0",
+        "on-click": "swaymsg 'scratchpad show'",
+        "on-click-right": "swaymsg 'move scratchpad'"
+    },
+    "custom/notification": {
+	"tooltip": true,
+	"format": "{icon}",
+	"format-icons": {
+	     "notification": "<span foreground='red'><small><sup>⬤</sup></small></span>",
+	     "none": " ",
+	     "dnd-notification": "<span foreground='red'><small><sup>⬤</sup></small></span>",
+	     "dnd-none": " "
+	},
+	"return-type": "json",
+	"exec-if": "which swaync-client",
+	"exec": "swaync-client -swb",
+	"on-click": "swaync-client -t -sw",
+	"on-click-right": "swaync-client -d -sw",
+	"escape": true
+   }
+}
